@@ -18,7 +18,7 @@
      <!-- To print a variable in a template, wrap the 
         variable name in double braces. -->
       <li class="list-group-item border-0">
-        <a href="{% url 'MainApp:topic' topic.id %}">
+        <a href="{% url 'mainapp:topic' topic.id %}">
           {{ topic.text }}</a>
       </li>
      {% empty %}  <!-- if the list is empty then display message-->
@@ -26,6 +26,6 @@
      {% endfor %}
   </ul>
 
-  <a href="{% url 'MainApp:new_topic' %}">Add a new topic</a>
+  <a href="{% url 'mainapp:new_topic' %}">Add a new topic</a>
 
 {% endblock content %}
