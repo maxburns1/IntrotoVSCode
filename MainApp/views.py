@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
-    return render(request, 'MainApp/index.html')
+    return render(request, 'mainapp/index.html')
 
 @login_required
 def topics(request):
@@ -15,7 +15,7 @@ def topics(request):
     
     context = {'all_topics': topic}
 
-    return render(request, 'MainApp/topics.html', context)
+    return render(request, 'mainapp/topics.html', context)
 
 @login_required
 def topic(request, topic_id):
@@ -27,7 +27,7 @@ def topic(request, topic_id):
 
     context = {'topic':t, 'entries':entries}
 
-    return render(request, 'MainApp/topic.html', context)
+    return render(request, 'mainapp/topic.html', context)
 
 @login_required
 def new_topic(request):
@@ -41,11 +41,11 @@ def new_topic(request):
             new_topic.owner = request.user
             new_topic.save()
 
-            return redirect('MainApp:topics')
+            return redirect('mainapp:topics')
 
     context = {'form': form}
     
-    return render(request, 'MainApp/new_topic.html', context)
+    return render(request, 'mainapp/new_topic.html', context)
 @login_required
 def new_entry(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
@@ -68,11 +68,11 @@ def new_entry(request, topic_id):
             
             new_entry.save()
            
-            return redirect('MainApp:topic', topic_id=topic_id)
+            return redirect('mainapp:topic', topic_id=topic_id)
 
   
     context = {'topic': topic, 'form': form}
-    return render(request, 'MainApp/new_entry.html', context)
+    return render(request, 'mainapp/new_entry.html', context)
 @login_required
 def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
@@ -85,7 +85,7 @@ def edit_entry(request, entry_id):
         form = EntryForm(data=request.POST, instance=entry)
         if form.is_valid():
             form.save()
-            return redirect('MainApp:topic', topic_id=topic.id)
+            return redirect('mainapp:topic', topic_id=topic.id)
 
     context = {'entry': entry, 'topic': topic, 'form': form}
-    return render(request, 'MainApp/edit_entry.html', context)
+    return render(request, 'mainapp/edit_entry.html', context)
