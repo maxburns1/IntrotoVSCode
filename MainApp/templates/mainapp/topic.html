@@ -14,7 +14,7 @@
       <!-- Card header with timestamp and edit link -->
        <h4 class="card-header">
         {{ entry.date_added|date:'M d, Y H:i' }}
-         <small><a href="{% url 'MainApp:edit_entry' entry.id %}">
+         <small><a href="{% url 'mainapp:edit_entry' entry.id %}">
           edit entry</a></small>
       </h4>
       <!-- Card body with entry text -->
@@ -25,7 +25,7 @@
      {% endfor %}
 
   <p>
-   <a href="{% url 'MainApp:new_entry' topic.id %}">Add new entry</a>
+   <a href="{% url 'mainapp:new_entry' topic.id %}">Add new entry</a>
  </p> 
 
 

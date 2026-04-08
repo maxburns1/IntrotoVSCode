@@ -13,6 +13,6 @@ def register(request):
             new_user = form.save()
 
             login(request, new_user)
-            return redirect('MainApp:index')
+            return redirect('mainapp:index')
     context = {'form': form}
     return render(request, 'users/register.html', context)
