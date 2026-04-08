@@ -1,4 +1,4 @@
-{% extends "MainApp/base.html" %}
+{% extends "mainapp/base.html" %}
 
 {% load bootstrap4 %}
 
@@ -24,7 +24,7 @@
         <!--include a hidden form element, 'next'; the value argument 
             tells Django where to redirect the user after they’ve logged in successfully.-->
         <input type="hidden" name="next"
-        value="{% url 'MainApp:index' %}" />
+        value="{% url 'mainapp:index' %}" />
     </form>
 
 {% endblock content %}
