@@ -1,32 +1,66 @@
-<div style="display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0;">
-    <div>
-        <a href="{% url 'MainApp:index' %}">Learning Log</a>
-        {% if user.is_authenticated %}
-            <a href="{% url 'MainApp:topics' %}" style="margin-left: 15px;">Topics</a>
-        {% endif %}
-    </div>
+{% load bootstrap4 %}
 
-    <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
-        {% if user.is_authenticated %}
-            <span>Hello, {{ user.username }}</span>
-            <form action="{% url 'users:logout' %}" method="post" style="margin: 0;">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Learning Log</title>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+      <a class="navbar-brand" href="{% url 'MainApp:index' %}">Learning Log</a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'MainApp:topics' %}">Topics</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <span class="navbar-text mr-2">Hello, {{ user.username }}.</span>
+            </li>
+            <li class="nav-item">
+              <form action="{% url 'users:logout' %}" method="post" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit" style="background:none; border:none; color:blue; text-decoration:underline; cursor:pointer; padding:0; font-family: inherit; font-size: inherit;">
-                    Log out
+                <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer; display:inline; vertical-align: middle;">
+                  Log out
                 </button>
-            </form>
-        {% else %}
-        <a href="{% url 'users:register' %}" style="margin-left: 15px;">
-            Register
-        </a>
-        <a href="{% url 'users:login' %}" style="margin-left: 15px;">
-            Log in
-        </a>
-        {% endif %}
-    </div>
-</div>
+              </form>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
 
-<hr>
+    <main role="main" class="container">
+      <div class="pb-2 mb-2 border-bottom">
+        {% block page_header %}{% endblock page_header %}
+      </div>
 
-{% block content %}
-{% endblock content %}
+      <div>
+        {% block content %}{% endblock content %}
+      </div>
+    </main>
+  </body>
+</html>

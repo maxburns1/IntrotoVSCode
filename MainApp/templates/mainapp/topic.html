@@ -1,25 +1,32 @@
-{% extends 'mainapp/base.html' %}
+{% extends "MainApp/base.html" %}
+
+{% block page_header %}
+  <h1>{{ topic }}</h1>
+{% endblock page_header %}
 
 {% block content %}
 
-<p>Topic: {{ topic }}</p>
-<p>
-  <a href="{% url 'MainApp:new_entry' topic.id %}">Add new entry</a>
-</p>
+  <p>Topic: {{ topic }} </p>
 
-<ul>
-    {% for e in entries %}
+ 
+     {% for entry in entries %}
+     <div class="card mb-3">
+      <!-- Card header with timestamp and edit link -->
+       <h4 class="card-header">
+        {{ entry.date_added|date:'M d, Y H:i' }}
+         <small><a href="{% url 'MainApp:edit_entry' entry.id %}">
+          edit entry</a></small>
+      </h4>
+      <!-- Card body with entry text -->
+       <div class="card-body">{{ entry.text|linebreaks }}</div>
+    </div>
+     {% empty %}  <!-- if the list is empty then display message-->
+      <p> There are no entries for this topic yet.<p>
+     {% endfor %}
 
-    <p>{{ e.text }}</p>
-    <p>
-        <a href="{% url 'MainApp:edit_entry' e.id %}">Edit entry</a></p>
-    <p>{{ e.date_added }}</p>
-    {% empty %}
-    <li>No entries have been added yet.</li>
-    {% endfor %}
-</ul>
-
+  <p>
+   <a href="{% url 'MainApp:new_entry' topic.id %}">Add new entry</a>
+ </p> 
 
 
 {% endblock content %}
-
