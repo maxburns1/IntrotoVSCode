@@ -1,0 +1,25 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+
+<p>Topic: {{ topic }}</p>
+<p>
+  <a href="{% url 'MainApp:new_entry' topic.id %}">Add new entry</a>
+</p>
+
+<ul>
+    {% for e in entries %}
+
+    <p>{{ e.text }}</p>
+    <p>
+        <a href="{% url 'MainApp:edit_entry' e.id %}">Edit entry</a></p>
+    <p>{{ e.date_added }}</p>
+    {% empty %}
+    <li>No entries have been added yet.</li>
+    {% endfor %}
+</ul>
+
+
+
+{% endblock content %}
+
